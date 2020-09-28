@@ -15,6 +15,7 @@ const ImageLinkForm = ({ onInputChange, onSubmit, onRandomSubmit }) => {
                         className="f4 pa2 w-60 center but"
                         type="text"
                         onChange={(event) => onInputChange(event)}
+                        placeholder="insert image url here"
                     />
                     <button
                         className="tc w-20 grow link pv2 dib white bg-light-purple but"
