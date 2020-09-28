@@ -1,0 +1,35 @@
+.form {
+    width: 700px;
+    background-size: 40px 60px;
+}
+.deets {
+    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 550px) {
+    .but {
+        font-size: 80%;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .deets {
+        font-size: 2em;
+    }
+}
+
+@media only screen and (max-width: 412px) {
+    .deets {
+        font-size: 1em;
+    }
+}
+
+@media only screen and (max-width: 321px) {
+    .deets {
+        font-size: 0.8em;
+    }
+
+    .but {
+        font-size: 60%;
+    }
+}

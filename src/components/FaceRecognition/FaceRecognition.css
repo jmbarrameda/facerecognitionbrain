@@ -1,0 +1,17 @@
+.bounding-box {
+    position: absolute;
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.5) inset;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.number {
+    position: absolute;
+    color: white;
+    top: 15px;
+    left: 30px;
+    background-color: rgba(255, 0, 0, 0.5);
+    padding: 5px;
+}
