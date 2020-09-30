@@ -10,6 +10,8 @@ import "./App.css";
 import MiniNav from "./components/MiniNav/MiniNav";
 import { ClarifaiApiKey } from "./api_keys/api_keys";
 import { Images } from "./Images";
+import Login from "./components/Form/Login";
+import Register from "./components/Form/Register";
 
 const particleOptions = {
     particles: {
@@ -42,6 +44,8 @@ function App() {
     const [imageURL, setImageURL] = useState("");
     const [box, setBox] = useState([]);
     const [randImg, setRandImg] = useState(Images);
+    const [signInVisible, setSignInVisible] = useState(false);
+    const [signUpVisible, setSignUpVisible] = useState(false);
 
     const onInputChange = (event) => {
         setInput(event.target.value);
@@ -97,10 +101,27 @@ function App() {
         onSubmit();
     };
 
+    const onSignInFormClick = () => {
+        setSignInVisible(!signInVisible);
+    };
+
+    const onSignUpFormClick = () => {
+        setSignUpVisible(!signUpVisible);
+    };
     return (
         <div className="App">
             <Particles className="particle" params={particleOptions} />
-            <MiniNav />
+
+            <MiniNav
+                onSignInFormClick={onSignInFormClick}
+                onSignUpFormClick={onSignUpFormClick}
+            />
+            {signInVisible ? (
+                <Login onSignInFormClick={onSignInFormClick} />
+            ) : null}
+            {signUpVisible ? (
+                <Register onSignUpFormClick={onSignUpFormClick} />
+            ) : null}
             {/* <Navigation /> */}
             {/* <Logo /> */}
             <Rank />
@@ -109,6 +130,7 @@ function App() {
                 onSubmit={onSubmit}
                 onRandomSubmit={onRandomSubmit}
             />
+
             <FaceRecognition box={box} imageURL={imageURL} />
         </div>
     );
