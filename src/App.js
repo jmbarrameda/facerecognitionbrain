@@ -12,6 +12,7 @@ import { ClarifaiApiKey } from "./api_keys/api_keys";
 import { Images } from "./Images";
 import Login from "./components/Form/Login";
 import Register from "./components/Form/Register";
+import "animate.css";
 
 const particleOptions = {
     particles: {
@@ -108,6 +109,7 @@ function App() {
     const onSignUpFormClick = () => {
         setSignUpVisible(!signUpVisible);
     };
+
     return (
         <div className="App">
             <Particles className="particle" params={particleOptions} />
@@ -116,12 +118,10 @@ function App() {
                 onSignInFormClick={onSignInFormClick}
                 onSignUpFormClick={onSignUpFormClick}
             />
-            {signInVisible ? (
-                <Login onSignInFormClick={onSignInFormClick} />
-            ) : null}
-            {signUpVisible ? (
+            {signInVisible && <Login onSignInFormClick={onSignInFormClick} />}
+            {signUpVisible && (
                 <Register onSignUpFormClick={onSignUpFormClick} />
-            ) : null}
+            )}
             {/* <Navigation /> */}
             {/* <Logo /> */}
             <Rank />
@@ -130,7 +130,6 @@ function App() {
                 onSubmit={onSubmit}
                 onRandomSubmit={onRandomSubmit}
             />
-
             <FaceRecognition box={box} imageURL={imageURL} />
         </div>
     );

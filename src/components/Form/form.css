@@ -35,6 +35,7 @@
     opacity: 100;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
     /* transition: transform 300ms ease-in-out, opacity 300ms ease-in-out; */
+    /* transition: opacity 3s; */
 }
 
 .login {
@@ -115,4 +116,9 @@
 
 .register {
     height: 530px;
+}
+
+.popup {
+    animation: slideInDown; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1s; /* don't forget to set a duration! */
 }
