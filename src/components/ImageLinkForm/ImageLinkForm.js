@@ -18,13 +18,13 @@ const ImageLinkForm = ({ onInputChange, onSubmit, onRandomSubmit }) => {
                         placeholder="insert image url here"
                     />
                     <button
-                        className="tc w-20 grow link pv2 dib white bg-light-purple but"
+                        className="tc w-20 grow link pv2 dib white bg-blue but"
                         onClick={() => onSubmit()}
                     >
                         Detect
                     </button>
                     <button
-                        className="tc w-20 grow link pv2 dib white bg-light-purple but"
+                        className="tc w-20 grow link pv2 dib white bg-blue but"
                         onClick={() => onRandomSubmit()}
                     >
                         Random
