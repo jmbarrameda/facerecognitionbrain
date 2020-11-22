@@ -3,13 +3,17 @@
 }
 
 @media only screen and (max-width: 550px) {
-    .rank {
+    .rank,
+    .f1,
+    .f3 {
         font-size: 2em;
     }
 }
 
 @media only screen and (max-width: 410px) {
-    .rank {
+    .rank,
+    .f1,
+    .f3 {
         font-size: 1em;
     }
 }

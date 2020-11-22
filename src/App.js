@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Clarifai from "clarifai";
-import Navigation from "./components/Navigation/Navigation";
-import Logo from "./components/Logo/Logo";
+// import Navigation from "./components/Navigation/Navigation";
+// import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import Rank from "./components/Rank/Rank";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
@@ -34,9 +34,11 @@ const particleOptions = {
     },
 };
 
-const app = new Clarifai.App({
-    apiKey: ClarifaiApiKey,
-});
+// const app = new Clarifai.App({
+//     apiKey: ClarifaiApiKey,
+// });
+
+
 
 function App() {
     const [input, setInput] = useState(
@@ -44,9 +46,45 @@ function App() {
     );
     const [imageURL, setImageURL] = useState("");
     const [box, setBox] = useState([]);
-    const [randImg, setRandImg] = useState(Images);
+    const [randImg] = useState(Images);
     const [signInVisible, setSignInVisible] = useState(false);
     const [signUpVisible, setSignUpVisible] = useState(false);
+    const [route, setRoute] = useState("signout");
+    const [isSignedIn, setisSignedIn] = useState(false);
+    const [user, setUser] = useState({
+        id: "",
+        name: "",
+        email: "",
+        entries: 0,
+        joined: "",
+    });
+
+    const initialState = () => {
+        setImageURL("");
+        setBox([]);
+        setSignInVisible(false);
+        setSignUpVisible(false);
+        setRoute("signout");
+        setisSignedIn(false);
+        setUser({
+            id: "",
+            name: "",
+            email: "",
+            entries: 0,
+            joined: "",
+        })
+    }
+
+    const loadUser = (data) => {
+        console.log(data);
+        setUser({
+            id: data.id,
+            name: data.name,
+            email: data.email,
+            entries: data.entries,
+            joined: data.joined,
+        });
+    };
 
     const onInputChange = (event) => {
         setInput(event.target.value);
@@ -80,26 +118,43 @@ function App() {
         setBox(boxData);
     };
 
-    const onSubmit = () => {
+    const onSubmit = (isRandom) => {
         setImageURL(input);
-        app.models
-            .initModel({
-                id: Clarifai.FACE_DETECT_MODEL,
-            })
-            .then((generalModel) => {
-                return generalModel.predict(input);
-            })
+        fetch("https://shielded-tundra-88447.herokuapp.com/imageUrl", {
+                method: "post",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({
+                    input: input
+                })
+            }).then((response) => response.json())
             .then((response) => {
-                displayFaceBox(calculateFaceLocation(response));
+                console.log(response);
+                if (isSignedIn && !isRandom) {
+                    fetch("https://shielded-tundra-88447.herokuapp.com/image", {
+                        method: "put",
+                        headers: { "Content-type": "application/json" },
+                        body: JSON.stringify({
+                            id: user.id,
+                        }),
+                    })
+                        .then((response) => response.json())
+                        .then((entry) => {
+                                setUser({ ...user, entries: entry });
+                        }).catch(console.log)
+                }
+
+                 displayFaceBox(calculateFaceLocation(response));
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+            })
     };
 
     const onRandomSubmit = () => {
         const randNum = Math.floor(Math.random() * randImg.length);
         const image = randImg[randNum];
         setInput(image);
-        onSubmit();
+        onSubmit(true);
     };
 
     const onSignInFormClick = () => {
@@ -110,21 +165,46 @@ function App() {
         setSignUpVisible(!signUpVisible);
     };
 
+    const onRouteChange = (route) => {
+        if (route === "signout") {
+            initialState();
+            setisSignedIn(false);
+        } else if (route === "signin") {
+            setisSignedIn(true);
+        }
+        setRoute(route);
+    };
+
     return (
         <div className="App">
             <Particles className="particle" params={particleOptions} />
 
             <MiniNav
+                route={route}
+                onRouteChange={onRouteChange}
                 onSignInFormClick={onSignInFormClick}
                 onSignUpFormClick={onSignUpFormClick}
+                isSignedIn={isSignedIn}
+                setisSignedIn={setisSignedIn}
+                user={user}
             />
-            {signInVisible && <Login onSignInFormClick={onSignInFormClick} />}
-            {signUpVisible && (
-                <Register onSignUpFormClick={onSignUpFormClick} />
+            {signInVisible && (
+                <Login
+                    onRouteChange={onRouteChange}
+                    onSignInFormClick={onSignInFormClick}
+                    loadUser={loadUser}
+                    setisSignedIn={setisSignedIn}
+                />
             )}
-            {/* <Navigation /> */}
-            {/* <Logo /> */}
-            <Rank />
+            {signUpVisible && (
+                <Register
+                    onSignUpFormClick={onSignUpFormClick}
+                    onRouteChange={onRouteChange}
+                    loadUser={loadUser}
+                    setisSignedIn={setisSignedIn}
+                />
+            )}
+            <Rank route={route} isSignedIn={isSignedIn} user={user} />
             <ImageLinkForm
                 onInputChange={onInputChange}
                 onSubmit={onSubmit}
