@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e10b57e849234ec717e61aafc3f8c6e8",
+    "revision": "b5003d1da5bb19341def6f72e32e902a",
     "url": "/facerecognitionbrain/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/facerecognitionbrain/static/css/2.c49fe6e8.chunk.css"
   },
   {
-    "revision": "76e20f193de810f0337e",
-    "url": "/facerecognitionbrain/static/css/main.62495565.chunk.css"
+    "revision": "a75b2078b648b6ae0bde",
+    "url": "/facerecognitionbrain/static/css/main.29ce26b8.chunk.css"
   },
   {
     "revision": "7abfe0e1b246e883a9ea",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/facerecognitionbrain/static/js/2.c319820f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "76e20f193de810f0337e",
-    "url": "/facerecognitionbrain/static/js/main.ad4dbbf1.chunk.js"
+    "revision": "a75b2078b648b6ae0bde",
+    "url": "/facerecognitionbrain/static/js/main.e5b6177b.chunk.js"
   },
   {
     "revision": "a0d072c450e7e6f545a0",
